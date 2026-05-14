@@ -1,10 +1,10 @@
-const API_URL = "http://t4xbsd9s7ns46zkc62na2kyi.178.105.39.91.sslip.io";
+const API_URL = "http://localhost:3000";
 
     let currentQuoteId = null;
 
     async function fetchRandomQuote() {
       try {
-        const response = await fetch(`${API_URL}/quotes/random`);
+        const response = await fetch("http://t4xbsd9s7ns46zkc62na2kyi.178.105.39.91.sslip.io");
         const quote = await response.json();
 
         currentQuoteId = quote.id;

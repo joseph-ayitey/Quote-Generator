@@ -1,78 +1,77 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "http://t4xbsd9s7ns46zkc62na2kyi.178.105.39.91.sslip.io";
 
-    let currentQuoteId = null;
+let currentQuoteId = null;
 
-    async function fetchRandomQuote() {
-      try {
-        const response = await fetch("http://t4xbsd9s7ns46zkc62na2kyi.178.105.39.91.sslip.io");
-        const quote = await response.json();
+async function fetchRandomQuote() {
+  try {
+    const response = await fetch(`${API_URL}/quotes`);
+    const quote = await response.json();
 
-        currentQuoteId = quote.id;
+    currentQuoteId = quote.id;
 
-        document.getElementById("quoteText").innerText =
-          `"${quote.text}"`;
+    document.getElementById("quoteText").innerText =
+      `"${quote.text}"`;
 
-        document.getElementById("quoteAuthor").innerText =
-          `— ${quote.author}`;
-      } catch (error) {
-        console.error(error);
-      }
+    document.getElementById("quoteAuthor").innerText =
+      `— ${quote.author}`;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+document
+  .getElementById("nextBtn")
+  .addEventListener("click", fetchRandomQuote);
+
+document
+  .getElementById("quoteForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const text = document.getElementById("textInput").value;
+    const author = document.getElementById("authorInput").value;
+
+    try {
+      const response = await fetch(`${API_URL}/quotes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text,
+          author
+        })
+      });
+
+      const data = await response.json();
+
+      document.getElementById("message").innerText =
+        data.message;
+
+      document.getElementById("quoteForm").reset();
+
+    } catch (error) {
+      console.error(error);
     }
+  });
 
-    document
-      .getElementById("nextBtn")
-      .addEventListener("click", fetchRandomQuote);
+document
+  .getElementById("deleteBtn")
+  .addEventListener("click", async () => {
 
-    document
-      .getElementById("quoteForm")
-      .addEventListener("submit", async (e) => {
-        e.preventDefault();
+    if (!currentQuoteId) return;
 
-        const text = document.getElementById("textInput").value;
-        const author = document.getElementById("authorInput").value;
-
-        try {
-          const response = await fetch(`${API_URL}/quotes`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              text,
-              author
-            })
-          });
-
-          const data = await response.json();
-
-          document.getElementById("message").innerText =
-            data.message;
-
-          document.getElementById("quoteForm").reset();
-
-        } catch (error) {
-          console.error(error);
-        }
+    try {
+      await fetch(`${API_URL}/quotes/${currentQuoteId}`, {
+        method: "DELETE"
       });
 
-    document
-      .getElementById("deleteBtn")
-      .addEventListener("click", async () => {
+      fetchRandomQuote();
 
-        if (!currentQuoteId) return;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
-        try {
-          await fetch(`${API_URL}/quotes/${currentQuoteId}`, {
-            method: "DELETE"
-          });
-
-          fetchRandomQuote();
-
-        } catch (error) {
-          console.error(error);
-        }
-      });
-
-    fetchRandomQuote();
-
-    
+fetchRandomQuote();

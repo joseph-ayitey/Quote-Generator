@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quote Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Quote Generator</h1>
+
+    <div class="quote-box">
+      <div class="quote-text" id="quoteText">Loading...</div>
+      <div class="quote-author" id="quoteAuthor"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn">Next Quote</button>
+    <button class="delete-btn" id="deleteBtn">Delete Quote</button>
+
+    <form id="quoteForm">
+      <h2>Add Quote</h2>
+
+      <input
+        type="text"
+        id="textInput"
+        placeholder="Enter quote"
+        required
+      />
+
+      <input
+        type="text"
+        id="authorInput"
+        placeholder="Enter author"
+        required
+      />
+
+      <button class="submit-btn" type="submit">
+        Add Quote
+      </button>
+
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

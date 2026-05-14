@@ -1,4 +1,4 @@
-const API_URL = "http://t4xbsd9s7ns46zkc62na2kyi.178.105.39.91.sslip.io";
+const API_URL = "http://xfohim8cyddsfrnwhh2hcom6.178.105.39.91.sslip.io";
 
 let currentQuoteId = null;
 

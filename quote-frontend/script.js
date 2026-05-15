@@ -17,7 +17,7 @@ async function fetchRandomQuote() {
 
     console.log("API DATA:", data);
 
-    // FIX JSON MISMATCH
+    // JSON PACKAGE
     // If backend returns array -> pick random quote
     // If backend returns single object -> use it directly
     const quote = Array.isArray(data)
